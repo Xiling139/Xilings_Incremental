@@ -1,5 +1,7 @@
 package main;
 
+import generator.Generator;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -13,7 +15,9 @@ public class Gamepanel extends JPanel implements Runnable{
     public final int screenHeight = 720;
 
     Thread gameThread;
-    public UI ui = new UI(this);
+    public Generator generator = new Generator(this);
+    public UI ui = new UI(this, generator);
+    MouseHandler moH = new MouseHandler(this, ui);
 
     //game state
     public int gamestate;
@@ -28,6 +32,7 @@ public class Gamepanel extends JPanel implements Runnable{
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.setFocusable(true);
+        this.addMouseListener(moH);
     }
 
     public void setupGame() {
@@ -76,11 +81,8 @@ public class Gamepanel extends JPanel implements Runnable{
         }
     }
 
-    public double score = 0;
-    public double income = 1;
-
     public void update() {
-        score = score + income / ticksPerSecond;
+        generator.update();
     }
 
     public void paintComponent(Graphics g) {

@@ -19,8 +19,8 @@ public class MouseHandler implements MouseInputListener{
         int code = e.getButton();
 
         if (code == MouseEvent.BUTTON1) {
-            if (gp.gamestate == gp.PlayState) {
-            }
+            ui.cursorX = e.getX();
+            ui.cursorY = e.getY();
         }
     }
 
